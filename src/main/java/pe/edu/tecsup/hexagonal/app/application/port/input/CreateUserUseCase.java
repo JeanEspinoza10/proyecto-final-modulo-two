@@ -6,6 +6,4 @@ public interface CreateUserUseCase {
 
     User execute(User newUser);
 
-    // boolean existsByEmail(String email);
-
 }

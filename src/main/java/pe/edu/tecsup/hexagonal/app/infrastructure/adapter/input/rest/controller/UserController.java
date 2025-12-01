@@ -64,7 +64,7 @@ public class UserController {
         try {
             log.info("Fetching user with ID: {}", id);
 
-            User user = this.findUserUseCase.findUser(id);
+            User user = this.findUserUseCase.findUserById(id);
             log.info("User found: {}", user.getName());
 
             return ResponseEntity.ok(this.mapper.toResponse(user));

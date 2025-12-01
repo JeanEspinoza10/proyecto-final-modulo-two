@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import pe.edu.tecsup.hexagonal.app.domain.exception.InvalidUserDataException;
 
 import java.time.LocalDateTime;
 
@@ -30,6 +31,19 @@ public class User {
     // Auditoría
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+
+    public void validateUserInput() {
+
+        if (!this.hasValidName()) {
+            throw new InvalidUserDataException("Name must be at least 2 characters long");
+        }
+
+        if (!this.hasValidEmail()) {
+            throw new InvalidUserDataException("Invalid email format");
+        }
+    }
+
 
     public boolean hasValidEmail() {
         return email != null &&

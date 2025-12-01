@@ -25,8 +25,9 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         if (newUser == null) {
             throw new InvalidUserDataException("User cannot be null");
         }
+
         // Domain validation
-        validateUserInput(newUser);
+        newUser.validateUserInput();
 
         // Business rule: Check if email already exists
         if (userRepositoryPort.existsByEmail(newUser.getEmail())) {
@@ -36,16 +37,6 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         return userRepositoryPort.save(newUser);
     }
 
-    private void validateUserInput(User user) {
-
-        if (!user.hasValidName()) {
-            throw new InvalidUserDataException("Name must be at least 2 characters long");
-        }
-
-        if (!user.hasValidEmail()) {
-            throw new InvalidUserDataException("Invalid email format");
-        }
-    }
 
 /*
     @Override

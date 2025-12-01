@@ -22,7 +22,7 @@ public class FindUserUseCaseImpl implements FindUserUseCase {
 
     @Override
     @Transactional(readOnly = true)
-    public User findUser(Long id) {
+    public User findUserById(Long id) {
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("Invalid ID");
         }
@@ -53,17 +53,5 @@ public class FindUserUseCaseImpl implements FindUserUseCase {
         return users;
     }
 
-
-
-    private void validateUserInput(User user) {
-
-        if (!user.hasValidName()) {
-            throw new InvalidUserDataException("Name must be at least 2 characters long");
-        }
-
-        if (!user.hasValidEmail()) {
-            throw new InvalidUserDataException("Invalid email format");
-        }
-    }
 
 }

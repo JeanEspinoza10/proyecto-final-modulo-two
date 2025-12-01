@@ -27,10 +27,14 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
             throw new IllegalArgumentException("Invalid ID");
         }
 
+        if (user == null) {
+            throw new InvalidUserDataException("User cannot be null");
+        }
+
+        user.validateUserInput();
+
         User existingUser = userRepositoryPort.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
-
-        validateUserInput(user);
 
         // Check if email is being changed and if new email already exists
         if (!existingUser.getEmail().equals(user.getEmail()) &&
@@ -41,14 +45,4 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
         return userRepositoryPort.save(existingUser);
     }
 
-    private void validateUserInput(User user) {
-
-        if (!user.hasValidName()) {
-            throw new InvalidUserDataException("Name must be at least 2 characters long");
-        }
-
-        if (!user.hasValidEmail()) {
-            throw new InvalidUserDataException("Invalid email format");
-        }
-    }
 }

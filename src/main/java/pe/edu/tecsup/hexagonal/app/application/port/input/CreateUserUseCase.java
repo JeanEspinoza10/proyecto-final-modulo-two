@@ -4,7 +4,7 @@ import pe.edu.tecsup.hexagonal.app.domain.model.User;
 
 public interface CreateUserUseCase {
 
-    User createUser(User newUser);
+    User execute(User newUser);
 
     // boolean existsByEmail(String email);
 

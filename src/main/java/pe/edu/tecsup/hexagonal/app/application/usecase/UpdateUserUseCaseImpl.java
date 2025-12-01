@@ -22,7 +22,7 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
 
     @Override
     @Transactional
-    public User updateUser(Long id, User user) {
+    public User execute(Long id, User user) {
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("Invalid ID");
         }

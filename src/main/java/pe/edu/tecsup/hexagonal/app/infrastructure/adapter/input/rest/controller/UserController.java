@@ -39,7 +39,7 @@ public class UserController {
             log.info("Creating createUser with name: {} and email: {}", request.getName(), request.getEmail());
 
             User newUser = this.mapper.toDomain(request);
-            User createUser = this.createUserUseCase.createUser(newUser);
+            User createUser = this.createUserUseCase.execute(newUser);
 
             if (createUser == null) {
                 log.warn("User service returned null");
@@ -121,7 +121,7 @@ public class UserController {
             log.info("Updating user with ID: {} with data: name={}, email={}", id, request.getName(), request.getEmail());
 
             User user = mapper.toDomain(request);
-            User updatedUser = updateUserUseCase.updateUser(id, user);
+            User updatedUser = updateUserUseCase.execute(id, user);
 
             if (updatedUser == null) {
                 log.warn("User service returned null for update");
@@ -148,7 +148,7 @@ public class UserController {
         try {
             log.info("Deleting user with ID: {}", id);
 
-            deleteUserUseCase.deleteUser(id);
+            deleteUserUseCase.execute(id);
 
             log.info("User deleted successfully with ID: {}", id);
             return ResponseEntity.noContent().build();

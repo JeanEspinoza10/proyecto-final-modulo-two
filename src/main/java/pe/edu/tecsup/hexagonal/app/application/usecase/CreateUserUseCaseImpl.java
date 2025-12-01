@@ -20,7 +20,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private final UserRepositoryPort userRepositoryPort;
 
     @Override
-    public User createUser(User newUser) {
+    public User execute(User newUser) {
 
         if (newUser == null) {
             throw new InvalidUserDataException("User cannot be null");

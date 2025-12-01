@@ -6,7 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
-import pe.edu.tecsup.hexagonal.app.application.port.input.UserService;
+import pe.edu.tecsup.hexagonal.app.application.port.input.CreateUserUseCase;
+import pe.edu.tecsup.hexagonal.app.application.port.input.DeleteUserUseCase;
+import pe.edu.tecsup.hexagonal.app.application.port.input.FindUserUseCase;
+import pe.edu.tecsup.hexagonal.app.application.port.input.UpdateUserUseCase;
 import pe.edu.tecsup.hexagonal.app.domain.exception.InvalidUserDataException;
 import pe.edu.tecsup.hexagonal.app.domain.exception.UserNotFoundException;
 import pe.edu.tecsup.hexagonal.app.domain.model.User;
@@ -23,7 +26,10 @@ import java.util.List;
 @Slf4j
 public class UserController {
 
-    private final UserService userService;
+    private final CreateUserUseCase createUserUseCase;
+    private final FindUserUseCase findUserUseCase;
+    private final UpdateUserUseCase updateUserUseCase;
+    private final DeleteUserUseCase deleteUserUseCase;
 
     private final UserMapper mapper;
 
@@ -33,7 +39,7 @@ public class UserController {
             log.info("Creating createUser with name: {} and email: {}", request.getName(), request.getEmail());
 
             User newUser = this.mapper.toDomain(request);
-            User createUser = this.userService.createUser(newUser);
+            User createUser = this.createUserUseCase.createUser(newUser);
 
             if (createUser == null) {
                 log.warn("User service returned null");
@@ -58,7 +64,7 @@ public class UserController {
         try {
             log.info("Fetching user with ID: {}", id);
 
-            User user = this.userService.findUser(id);
+            User user = this.findUserUseCase.findUser(id);
             log.info("User found: {}", user.getName());
 
             return ResponseEntity.ok(this.mapper.toResponse(user));
@@ -77,7 +83,7 @@ public class UserController {
         try {
             log.info("Fetching all users");
 
-            List<User> users = this.userService.findAllUsers();
+            List<User> users = this.findUserUseCase.findAllUsers();
             List<UserResponse> responses = this.mapper.toResponse(users);
 
             log.info("Found {} users", responses.size());
@@ -94,7 +100,7 @@ public class UserController {
         try {
             log.info("Searching users by name: {}", name);
 
-            List<User> users = this.userService.findUsersByName(name);
+            List<User> users = this.findUserUseCase.findUsersByName(name);
             List<UserResponse> responses = this.mapper.toResponse(users);
 
             log.info("Found {} users with name containing '{}'", responses.size(), name);
@@ -115,7 +121,7 @@ public class UserController {
             log.info("Updating user with ID: {} with data: name={}, email={}", id, request.getName(), request.getEmail());
 
             User user = mapper.toDomain(request);
-            User updatedUser = userService.updateUser(id, user);
+            User updatedUser = updateUserUseCase.updateUser(id, user);
 
             if (updatedUser == null) {
                 log.warn("User service returned null for update");
@@ -142,7 +148,7 @@ public class UserController {
         try {
             log.info("Deleting user with ID: {}", id);
 
-            userService.deleteUser(id);
+            deleteUserUseCase.deleteUser(id);
 
             log.info("User deleted successfully with ID: {}", id);
             return ResponseEntity.noContent().build();

@@ -1,4 +1,4 @@
-package pe.edu.tecsup.hexagonal.app.infrastructure.adapter.input.rest.dto;
+package pe.edu.tecsup.hexagonal.app.infrastructure.adapter.input.rest.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,13 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse {
-    private Long id;
+@Builder
+public class CustomerRequest {
     private String name;
     private String email;
-    private String lastname;
-
+    private String document;
 }

@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BankAccountRepositoryPort {
-    BankAccount save(BankAccount bankAccount);
+    BankAccount save(BankAccount bankAccount, Customer customer );
+    void update(BankAccount bankAccount);
     boolean existsByAccountNumber(String accountNumber);
     Optional<BankAccount> findById(Long id);
     List<BankAccount> findAll();

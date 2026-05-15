@@ -12,6 +12,7 @@ import pe.edu.tecsup.hexagonal.app.domain.model.Customer;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional
@@ -19,9 +20,18 @@ import java.util.List;
 public class BankAccountUseCaseImpl implements BankAccountUseCase {
 
     private final BankAccountRepositoryPort bankAccountRepositoryPort;
+    private final CustomerRepositoryPort customerRepositoryPort;
 
     @Override
     public BankAccount create(BankAccount bankAccount) {
+        Customer customer = this.customerRepositoryPort
+                .findById(bankAccount.getCustomerId())
+                .orElseThrow(() ->
+                        new InvalidBankAccounException(
+                                "Customer not found"
+                        )
+                );
+
         if(bankAccount == null){
             throw new InvalidBankAccounException("BankAccount cannot be null");
         }
@@ -30,7 +40,7 @@ public class BankAccountUseCaseImpl implements BankAccountUseCase {
         if(bankAccountRepositoryPort.existsByAccountNumber(bankAccount.getAccountNumber())){
             throw new InvalidBankAccounException(  " BankAccount number already exists: " + bankAccount.getAccountNumber());
         }
-        return bankAccountRepositoryPort.save(bankAccount);
+        return bankAccountRepositoryPort.save(bankAccount, customer);
     }
 
     @Override

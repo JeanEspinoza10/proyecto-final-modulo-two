@@ -53,14 +53,14 @@ public class TransactionUseCaseImpl implements TransactionUseCase {
             sourceAccount.withdraw(total);
             destinationAccount.deposit(transaction.getAmount());
 
-            bankAccountRepositoryPort.save(sourceAccount);
-            bankAccountRepositoryPort.save(destinationAccount);
+            bankAccountRepositoryPort.update(sourceAccount);
+            bankAccountRepositoryPort.update(destinationAccount);
             transaction.complete();
             notificationPort.notifyTransfer("Transfer correct");
 
         } catch (Exception exception) {
             transaction.fail();
-            notificationPort.notifyTransfer("Transfer incorrect");
+            notificationPort.notifyTransfer("Transfer incorrect ::: " + exception.getMessage());
         }
         return transactionRepositoryPort.save(transaction);
     }

@@ -6,6 +6,8 @@ El proyecto actual consiste en desarrollar un sistema de gestión bancaria ([ver
 2. Transferir dinero entre cuentas.
 
 
-
-
+## <u>ADRS </u>
+En los siguientes enlaces tenemos los documentos respectivos.
+- [ADR-001: Arquitectura Hexagonal](./docs/adrs/ADR-001.md)
+- [ADR-002: Sistema de Persistencia](./docs/adrs/ADR-002.md)
 

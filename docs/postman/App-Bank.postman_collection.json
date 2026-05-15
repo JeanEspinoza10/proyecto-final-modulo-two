@@ -1,0 +1,198 @@
+{
+  "info": {
+    "_postman_id": "809f5139-9027-4caa-9cab-92a5bdf9e981",
+    "name": "App-Bank",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "24688063",
+    "_collection_link": "https://go.postman.co/collection/24688063-809f5139-9027-4caa-9cab-92a5bdf9e981?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Gestión Básicas de Cuentas",
+      "item": [
+        {
+          "name": "Create Customers",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1IiwiZW1haWwiOiJqZWFudGVzdDEyM0BlbWFpbC5jb20iLCJ0eXBlIjoiYWNjZXNzIiwiaXNzIjoiYXV0aC1zZXJ2aWNlLWZpc2NhbGlhIiwiaWF0IjoxNzc4MjEyMzYwLCJleHAiOjE3NzgyNTU1NjB9.grbSecWTy_uz2OUqkKzYZ2M99hRXxOxbTSUdK-XPB0U",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"sandra\",\r\n    \"email\": \"sandra20@gmail.com\",\r\n    \"document\": \"12345658\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/customers",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "customers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Customers All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/api/customers",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "customers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Bank Account",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"customerId\": 77,\r\n    \"accountNumber\": \"tes-render-two-total\",\r\n    \"balance\": 45,\r\n    \"status\": \"ACTIVE\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/bank-accounts",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "bank-accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Bank Accounts All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/api/bank-accounts",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "bank-accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Balance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/api/bank-accounts/balance?bankAccountId=12",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "bank-accounts",
+                "balance"
+              ],
+              "query": [
+                {
+                  "key": "bankAccountId",
+                  "value": "12"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Operación Principal",
+      "item": [
+        {
+          "name": "Bank Accounts All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/api/bank-accounts",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "bank-accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transfer Money",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"sourceAccountId\" : 1,\r\n    \"destinationAccountId\": 2,\r\n    \"amount\": 30,\r\n    \"type\": \"TRANSFERENCIA\",\r\n    \"description\": \"test de transferencia\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/transfer-money",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "transfer-money"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

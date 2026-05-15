@@ -36,6 +36,10 @@ spring.jpa.properties.hibernate.format_sql=true
 
 5. Ejecutar la clase `HexagonalApplication`.
 
+### REQUISITOS FUNCIONALES
+Para utilizar la aplicación, es necesario descargar e importar la colección de Postman ubicada en:
+
+`docs/postman/App-Bank.postman_collection.json`
 
 ## <u>ADRS </u>
 En los siguientes enlaces tenemos los documentos respectivos.
@@ -44,3 +48,28 @@ En los siguientes enlaces tenemos los documentos respectivos.
 
 ## <u>Diagrama de la arquitectura </u>
 [Diagrama](./docs/img/diagrama.png)
+
+## <u>Patrones Implementados</u>
+
+### Adapter Input
+Los archivos ubicados en:
+
+`src/main/java/pe/edu/tecsup/hexagonal/app/infrastructure/adapter/input/rest/controller`
+
+actúan como adaptadores de entrada, encargándose de transformar las solicitudes HTTP REST en llamadas hacia los casos de uso y reglas de negocio de la aplicación.
+
+### Adapter Output
+Los archivos ubicados en:
+
+`src/main/java/pe/edu/tecsup/hexagonal/app/infrastructure/adapter/output/persistence/repository`
+
+actúan como adaptadores de salida, encargándose de implementar la comunicación entre el dominio de la aplicación y la base de datos PostgreSQL mediante mecanismos de persistencia.
+
+### Singleton
+
+El archivo ubicado en:
+
+`src/main/java/pe/edu/tecsup/hexagonal/app/infrastructure/config`
+
+implementan el patrón Singleton mediante la gestión de dependencias de Spring Boot.  
+Las clases configuradas con `@Configuration` y `@Bean` permiten que Spring cree una única instancia compartida de los casos de uso y componentes de la aplicación durante todo el ciclo de vida del sistema.

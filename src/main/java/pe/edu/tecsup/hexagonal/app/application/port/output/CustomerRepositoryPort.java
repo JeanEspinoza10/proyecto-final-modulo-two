@@ -10,4 +10,5 @@ public interface CustomerRepositoryPort {
     boolean existsByDocument(String document);
     boolean existsByEmail(String email);
     List<Customer> findAll();
+    Optional<Customer> findById(Long id);
 }

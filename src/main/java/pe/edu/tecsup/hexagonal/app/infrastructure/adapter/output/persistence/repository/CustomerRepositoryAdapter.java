@@ -9,6 +9,7 @@ import pe.edu.tecsup.hexagonal.app.infrastructure.adapter.output.persistence.ent
 import pe.edu.tecsup.hexagonal.app.infrastructure.adapter.output.persistence.mapper.CustomerMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -39,5 +40,11 @@ public class CustomerRepositoryAdapter implements CustomerRepositoryPort {
     public List<Customer> findAll() {
         List<CustomerEntity> foundCustomerEntity =  this.customerJpaRepository.findAll();
         return this.customerMapper.toDomainList(foundCustomerEntity);
+    }
+
+    @Override
+    public Optional<Customer> findById(Long id) {
+        Optional<CustomerEntity> customerEntity = this.customerJpaRepository.findById(id);
+        return this.customerMapper.toDomainOptional(customerEntity);
     }
 }

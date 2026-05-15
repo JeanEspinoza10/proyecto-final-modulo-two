@@ -1,4 +1,8 @@
 package pe.edu.tecsup.hexagonal.app.infrastructure.adapter.output.persistence.repository;
 
-public interface BankAccountJpaRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import pe.edu.tecsup.hexagonal.app.infrastructure.adapter.output.persistence.entity.BankAccountEntity;
+
+public interface BankAccountJpaRepository extends JpaRepository<BankAccountEntity, Long> {
+    boolean existsByAccountNumber(String accountNumber);
 }

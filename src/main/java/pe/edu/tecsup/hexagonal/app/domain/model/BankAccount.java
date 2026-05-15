@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class BankAccount {
 
     private final Long id;
-    private final String customerId;
+    private final Long customerId;
     private final String accountNumber;
     private BigDecimal balance;
     private final BankAccountStatus status;
@@ -22,7 +22,7 @@ public class BankAccount {
 
     private BankAccount(
             Long id,
-            String customerId,
+            Long customerId,
             String accountNumber,
             BigDecimal balance,
             BankAccountStatus status,
@@ -44,7 +44,7 @@ public class BankAccount {
 
     public static BankAccount create(
             Long id,
-            String customerId,
+            Long customerId,
             String accountNumber,
             BigDecimal balance
     ) {
@@ -60,6 +60,26 @@ public class BankAccount {
         );
     }
 
+    public static BankAccount restore(
+            Long id,
+            Long customerId,
+            String accountNumber,
+            BigDecimal balance,
+            BankAccountStatus status,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt
+    ) {
+
+        return new BankAccount(
+                id,
+                customerId,
+                accountNumber,
+                balance,
+                status,
+                createdAt,
+                updatedAt
+        );
+    }
 
     private void validateBalance(BigDecimal balance) {
 

@@ -29,7 +29,10 @@ public class CustomerController {
         Customer newCustomer = this.customerMapper.toDomain(customerRequest);
         Customer createCustomer = this.customerUseCase.create(newCustomer);
         if(createCustomer==null){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(ApiResponseFactory.error(
+                    "Not exits Customer",
+                    HttpStatus.BAD_REQUEST.value()
+            ));
         }
         CustomerResponse customerResponse = this.customerMapper.toResponse(createCustomer);
         return ResponseEntity.status(HttpStatus.CREATED).body(

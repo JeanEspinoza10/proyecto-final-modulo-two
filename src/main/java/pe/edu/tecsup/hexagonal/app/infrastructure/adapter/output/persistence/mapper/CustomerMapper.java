@@ -9,17 +9,19 @@ import pe.edu.tecsup.hexagonal.app.infrastructure.adapter.input.rest.dto.respons
 import pe.edu.tecsup.hexagonal.app.infrastructure.adapter.output.persistence.entity.CustomerEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {
 
+    // Entity -> Domain
     @Mapping(
             target = "createdAt",
             source = "createdAt"
     )
     Customer toDomain(CustomerEntity customerEntity);
 
-    // Request to Domain (for new users)
+    // Request -> Domain (for new users)
     default  Customer toDomain(CustomerRequest customerRequest){
         return  Customer.create(
             null,
@@ -29,7 +31,9 @@ public interface CustomerMapper {
         );
     };
 
+    // Domain -> Entity
     CustomerEntity toEntity(Customer customer);
+
     // Domain to Response
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
@@ -42,4 +46,12 @@ public interface CustomerMapper {
 
     // List of Customer -> List of CustomerResponse
     List<CustomerResponse> toResponseList(List<Customer> customers);
+
+    // Optional of CustomerEntity -> Optional of Customer
+    default Optional<Customer> toDomainOptional(
+            Optional<CustomerEntity> customerEntityOptional
+    ) {
+
+        return customerEntityOptional.map(this::toDomain);
+    }
 }

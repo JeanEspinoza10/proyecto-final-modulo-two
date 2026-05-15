@@ -12,7 +12,6 @@ import pe.edu.tecsup.hexagonal.app.domain.exception.InvalidBankAccounException;
 import pe.edu.tecsup.hexagonal.app.domain.model.BankAccount;
 import pe.edu.tecsup.hexagonal.app.domain.model.Transaction;
 
-import javax.management.Notification;
 import java.math.BigDecimal;
 
 @RequiredArgsConstructor

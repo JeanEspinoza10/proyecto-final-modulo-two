@@ -5,10 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 import pe.edu.tecsup.hexagonal.app.application.port.input.BankAccountUseCase;
 import pe.edu.tecsup.hexagonal.app.application.port.output.BankAccountRepositoryPort;
+import pe.edu.tecsup.hexagonal.app.application.port.output.CustomerRepositoryPort;
 import pe.edu.tecsup.hexagonal.app.domain.exception.InvalidBankAccounException;
 import pe.edu.tecsup.hexagonal.app.domain.model.BankAccount;
+import pe.edu.tecsup.hexagonal.app.domain.model.Customer;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional
@@ -22,9 +25,10 @@ public class BankAccountUseCaseImpl implements BankAccountUseCase {
         if(bankAccount == null){
             throw new InvalidBankAccounException("BankAccount cannot be null");
         }
+
         // Validate if exists AccountNumber
         if(bankAccountRepositoryPort.existsByAccountNumber(bankAccount.getAccountNumber())){
-            throw new InvalidBankAccounException(  "Account number already exists: " + bankAccount.getAccountNumber());
+            throw new InvalidBankAccounException(  " BankAccount number already exists: " + bankAccount.getAccountNumber());
         }
         return bankAccountRepositoryPort.save(bankAccount);
     }
@@ -39,5 +43,10 @@ public class BankAccountUseCaseImpl implements BankAccountUseCase {
                         )
                 );
         return bankAccount.getBalance();
+    }
+
+    @Override
+    public List<BankAccount> findAll() {
+        return this.bankAccountRepositoryPort.findAll();
     }
 }

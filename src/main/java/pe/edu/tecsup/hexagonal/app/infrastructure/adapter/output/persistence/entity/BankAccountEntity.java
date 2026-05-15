@@ -20,8 +20,9 @@ public class BankAccountEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "customer_id", nullable = false)
-    private String customerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private CustomerEntity customer;
 
     @Column(name = "account_number", nullable = false, unique = true, length = 30)
     private String accountNumber;
